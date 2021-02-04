@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Скатился | Официальный сайт</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <div class="block-logheader-form">
+        <a class="block-login" href="/"><h1 id="up">СКАТИЛСЯ</h1></a>
+    </div>
+
+    <div id="wrapper">
+        <form class="form-container" th:action="@{/registerProcess}" th:object="${user}" method="post">
+            <div id="registration" class="authorization">
+                <h1>Регистрация</h1>
+                <a href="/login">Вход</a>
+            </div>
+            <label>Имя пользователя: <input type="text" th:field="*{username}" placeholder="Введите Ваш юзернейм"/></label>
+            <label>E-mail: <input type="email" th:field="*{email}" placeholder="Введите Ваш E-mail"/></label>
+            <label>Пароль: <input type="password" th:field="*{password}" placeholder="Введите Ваш пароль"/></label>
+            <button type="submit">Зарегистрироваться</button>
+        </form>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>

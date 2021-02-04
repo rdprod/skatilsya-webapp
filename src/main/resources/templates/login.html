@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Скатился | Официальный сайт</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <div class="block-logheader-form">
+        <a class="block-login" href="/"><h1 id="up">СКАТИЛСЯ</h1></a>
+    </div>
+
+    <div id="wrapper">
+        <form th:action="@{/login}" method="post" class="form-container">
+            <div id="registration" class="authorization">
+                <h1>Вход</h1>
+                <a href="/registration">Регистрация</a>
+            </div>
+            <div th:if="${param.error}" class="error">
+                <label>Неправильное имя или пароль</label>
+            </div>
+            <div th:if="${param.logout}" class="success">
+                <label>Вы успешно вышли из своего аккаунта</label>
+            </div>
+            <label>Имя пользователя:</label>
+            <input name="username" type="text" autofocus="true" placeholder="Введите Ваш юзернейм"/>
+            <label>Пароль:</label>
+            <input name="password" type="password" placeholder="Введите Ваш пароль"/>
+            <button type="submit">Войти</button>
+        </form>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>

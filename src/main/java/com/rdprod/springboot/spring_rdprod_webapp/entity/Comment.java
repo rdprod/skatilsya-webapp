@@ -14,7 +14,8 @@ public class Comment {
     @Column(name = "text")
     private String text;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE,
+            CascadeType.REFRESH, CascadeType.DETACH})
     @JoinColumn(name = "user_id")
     private User user;
 
