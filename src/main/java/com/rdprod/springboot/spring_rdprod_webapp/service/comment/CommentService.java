@@ -9,4 +9,6 @@ public interface CommentService {
     public List<Comment> findAllComments();
 
     public void addNewComment(Comment comment);
+
+    public void deleteComment(int id);
 }

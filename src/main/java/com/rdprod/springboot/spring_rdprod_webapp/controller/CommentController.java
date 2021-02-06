@@ -7,13 +7,10 @@ import com.rdprod.springboot.spring_rdprod_webapp.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 public class CommentController {
@@ -37,6 +34,13 @@ public class CommentController {
         User user = userService.findUserByUsername(principal.getName());
         newComment.setUser(user);
         commentService.addNewComment(newComment);
+
+        return "redirect:/feedback";
+    }
+
+    @GetMapping("/deleteCommentProcess/{id}")
+    public String deleteComment(@PathVariable("id") int id) {
+        commentService.deleteComment(id);
 
         return "redirect:/feedback";
     }

@@ -315,6 +315,7 @@ a:active {
 }
 
 .comment-area {
+  position: relative;
   margin-bottom: 10px;
   width: 800px;
   background-color: #ffca28;
@@ -344,6 +345,14 @@ a:active {
   position: absolute;
   height: 60px;
   width: 60px;
+}
+
+.comment-items {
+  display: flex;
+}
+
+.comment-items > .delete_button {
+
 }
 
 .form-comment-container {
@@ -467,7 +476,7 @@ input[type=text] {
   transition: all .2s ease-in-out;
 }
 
-button, [type=submit] {
+.submit_element {
   background: #5c34fa;
   opacity: .8;
   border: none;
@@ -479,16 +488,14 @@ button, [type=submit] {
   height: 72px;
   width: 100%;
   overflow: hidden;
-  transition: all .3s cubic-bezier(.6,0,.4,1);
 }
 
-button span {
-  display: block;
-  line-height: 72px;
-  position: relative;
-  top: -2px;
-  transform: translate3d(0,0,0);
-}
+/*button span {*/
+/*  display: block;*/
+/*  line-height: 72px;*/
+/*  position: relative;*/
+/*  top: -2px;*/
+/*}*/
 
 button:hover, input[type=submit]:hover {
   opacity: 1;
@@ -550,4 +557,12 @@ button:hover, input[type=submit]:hover {
   margin-bottom: 5px;
   color: green;
   text-align: left;
+}
+
+.delete_button {
+  right: 50px;
+  border: 0;
+  background: transparent;
+  opacity: .5;
+  position: absolute;
 }

@@ -13,12 +13,12 @@
     <div class="block-logheader user-system">
         <a class="block-login" id="feedback" href="/"><h1 id="up">СКАТИЛСЯ</h1></a>
         <div sec:authorize="!isAuthenticated()" class="authorization logout">
-            <a href="/login"><button>Войти</button></a>
+            <a href="/login"><button class="submit_element">Войти</button></a>
         </div>
-        <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post"}>
+        <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post">
             <div class="authorization logout">
                 <p sec:authentication="name"></p>
-                <button type="submit">(Выйти)</button>
+                <button class="submit_element" type="submit">(Выйти)</button>
             </div>
         </form>
     </div>
@@ -29,10 +29,17 @@
                 <p>Ни одного комментария пока нет. Вы можете стать первым!</p>
             </div>
             <div th:each="comment: ${comments}" class="comment-area">
-                <img src="images/placeholder.png">
-                <div class="comment-text">
-                    <h2 th:text="${comment.user.username}"></h2>
-                    <span th:text="${comment.text}"></span>
+                <div class="comment-items">
+                    <img src="images/placeholder.png">
+                    <div class="comment-text">
+                        <h2 th:text="${comment.user.username}"></h2>
+                        <span th:text="${comment.text}"></span>
+                    </div>
+                    <form th:action="@{/deleteCommentProcess/{id}(id=${comment.id})}" method="get">
+                        <button class="delete_button" type="submit">
+                            <img src="images/deleteButton.png" height="30" width="30">
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -41,7 +48,7 @@
             <img src="images/placeholder.png">
             <form class="form-comment-container" th:action="@{/addNewCommentProcess}" th:object="${newComment}" method="post">
                 <input type="text" th:field="*{text}" placeholder="Введите Ваш комментарий"/>
-                <button type="submit">Отправить</button>
+                <button class="submit_element" type="submit">Отправить</button>
             </form>
         </div>
     </div>
