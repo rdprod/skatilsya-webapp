@@ -12,7 +12,10 @@
 <body>
     <div class="block-logheader user-system">
         <a class="block-login" id="feedback" href="/"><h1 id="up">СКАТИЛСЯ</h1></a>
-        <form th:action="@{/logout}" method="post"}>
+        <div sec:authorize="!isAuthenticated()" class="authorization logout">
+            <a href="/login"><button>Войти</button></a>
+        </div>
+        <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post"}>
             <div class="authorization logout">
                 <p sec:authentication="name"></p>
                 <button type="submit">(Выйти)</button>
@@ -21,14 +24,6 @@
     </div>
 
     <div class="main-comment-container">
-        <div sec:authorize="isAuthenticated()" class="comment-area">
-            <img src="images/placeholder.png">
-            <form class="form-comment-container" th:action="@{/addNewCommentProcess}" th:object="${newComment}" method="post">
-                <input type="text" th:field="*{text}" placeholder="Введите Ваш комментарий"/>
-                <button type="submit">Отправить</button>
-            </form>
-        </div>
-
         <div class="main-comment-area">
             <div th:if="${comments.isEmpty()}" class="not-comment">
                 <p>Ни одного комментария пока нет. Вы можете стать первым!</p>
@@ -40,6 +35,14 @@
                     <span th:text="${comment.text}"></span>
                 </div>
             </div>
+        </div>
+
+        <div sec:authorize="isAuthenticated()" class="comment-area">
+            <img src="images/placeholder.png">
+            <form class="form-comment-container" th:action="@{/addNewCommentProcess}" th:object="${newComment}" method="post">
+                <input type="text" th:field="*{text}" placeholder="Введите Ваш комментарий"/>
+                <button type="submit">Отправить</button>
+            </form>
         </div>
     </div>
 

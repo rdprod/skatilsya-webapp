@@ -20,10 +20,10 @@
                 <a href="/registration">Регистрация</a>
             </div>
             <div th:if="${param.error}" class="error">
-                <label>Неправильное имя или пароль</label>
+                <label>Неправильное имя или пароль!</label>
             </div>
             <div th:if="${param.logout}" class="success">
-                <label>Вы успешно вышли из своего аккаунта</label>
+                <label>Вы успешно вышли из аккаунта!</label>
             </div>
             <label>Имя пользователя:</label>
             <input name="username" type="text" autofocus="true" placeholder="Введите Ваш юзернейм"/>
