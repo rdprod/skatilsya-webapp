@@ -17,12 +17,12 @@ body h2 {
 }
 
 a {
-  color:#ffbad6;
+  color: #ffbad6;
   text-decoration: none;
 }
 
 .links a:hover {
-  color:#ffffff !important;
+  color: #ffffff !important;
   background:#25282a;
   background-size: 20px;
 }
@@ -43,7 +43,7 @@ a:active {
 }
 
 .header {
-  background: url("images/skatilsyabackground.png") no-repeat center center;
+  background: url(../images/skatilsyabackground.png) no-repeat center center;
   background-size: cover;
   height: 905px;
 }
@@ -53,7 +53,7 @@ a:active {
   display: flex;
   justify-content: center;
   position: relative;
-  top:9%;
+  top: 9%;
 }
 
 .header menu li a {
@@ -319,6 +319,7 @@ a:active {
   width: 800px;
   background-color: #ffca28;
   padding: 20px;
+
 }
 
 .comment-area form {
@@ -327,6 +328,10 @@ a:active {
 
 .comment-text {
   margin-left: 80px;
+}
+
+.comment-text span {
+  font-size: 24px;
 }
 
 .comment-text h2 {
@@ -383,7 +388,7 @@ html, body { margin: 0; }
 
 .login body {
   background: #eff1f2;
-  color: #fff;
+  color: #ffffff;
   font-family: 'Raleway', sans-serif;
   -webkit-font-smoothing: antialiased;
 }
@@ -448,13 +453,13 @@ input[type=radio]:checked + label { color: #25282a; }
 
 input[type=email],
 input[type=password],
-input[type=text]{
+input[type=text] {
   background: #f5f5f5;
   border: none;
   border-radius: 8px;
   font-size: 24px;
   font-family: 'Raleway', sans-serif;
-  color: #25282a;;
+  color: #25282a;
   height: 72px;
   width: 99.5%;
   margin-bottom: 10px;

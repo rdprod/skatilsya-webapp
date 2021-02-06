@@ -3,6 +3,7 @@ package com.rdprod.springboot.spring_rdprod_webapp.controller;
 import com.rdprod.springboot.spring_rdprod_webapp.entity.Comment;
 import com.rdprod.springboot.spring_rdprod_webapp.entity.User;
 import com.rdprod.springboot.spring_rdprod_webapp.service.comment.CommentService;
+import com.rdprod.springboot.spring_rdprod_webapp.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,12 +13,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class CommentController {
 
     @Autowired
     CommentService commentService;
+
+    @Autowired
+    UserService userService;
 
     @GetMapping("/feedback")
     public String showFeedbackPage(Model model) {
@@ -29,7 +34,8 @@ public class CommentController {
 
     @PostMapping("/addNewCommentProcess")
     public String addNewComment(@ModelAttribute("newComment") Comment newComment, Principal principal) {
-        newComment.setUser((User) principal);
+        User user = userService.findUserByUsername(principal.getName());
+        newComment.setUser(user);
         commentService.addNewComment(newComment);
 
         return "redirect:/feedback";
