@@ -2,11 +2,16 @@ package com.rdprod.springboot.spring_rdprod_webapp.details;
 
 import com.rdprod.springboot.spring_rdprod_webapp.entity.User;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 public class UserDetailsImpl implements UserDetails {
+
+    private static final String ROLE_PREFIX = "ROLE_";
 
     private User user;
 
@@ -16,7 +21,12 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        List<GrantedAuthority> grantedAuthorityList = new ArrayList<>();
+
+        user.getRoles().forEach(role ->
+                grantedAuthorityList.add(new SimpleGrantedAuthority(ROLE_PREFIX + role.getName())));
+
+        return grantedAuthorityList;
     }
 
     @Override
