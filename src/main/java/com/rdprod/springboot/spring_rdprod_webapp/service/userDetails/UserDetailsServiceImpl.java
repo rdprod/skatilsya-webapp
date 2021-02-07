@@ -1,4 +1,4 @@
-package com.rdprod.springboot.spring_rdprod_webapp.service.user;
+package com.rdprod.springboot.spring_rdprod_webapp.service.userDetails;
 
 import com.rdprod.springboot.spring_rdprod_webapp.dao.UserRepository;
 import com.rdprod.springboot.spring_rdprod_webapp.details.UserDetailsImpl;

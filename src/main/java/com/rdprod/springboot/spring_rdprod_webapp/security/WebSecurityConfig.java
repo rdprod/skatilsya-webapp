@@ -1,6 +1,6 @@
 package com.rdprod.springboot.spring_rdprod_webapp.security;
 
-import com.rdprod.springboot.spring_rdprod_webapp.service.user.UserDetailsServiceImpl;
+import com.rdprod.springboot.spring_rdprod_webapp.service.userDetails.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -49,7 +49,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/admin").authenticated()
+                .antMatchers("/admin/**").hasRole("ADMIN")
                 .anyRequest().permitAll()
                 .and()
                 .formLogin()
