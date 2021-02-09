@@ -1,13 +1,11 @@
 
 //Функция обработки scroll на основной странице
-
 $(document).ready( function() {
   $('.video > ul').scrollLeft(345);
 });
 
 
 //Функции обработки вывода текста в блоке about
-
 $(document).scroll( function() {
   if ( $(document).scrollTop() > 130 )
   {
@@ -25,8 +23,16 @@ $(document).scroll( function() {
 });
 
 //Кнопка в блоке мерч
-$('#merch-button').click( function(event) {
+$('#merch-button').click(function(event) {
   alert("Скоро в продаже!");
+});
+
+//Кнопка изменить в профиле
+const emailInput = $('#edit-email-input')
+let emailValue = emailInput.val();
+emailInput.keyup(function (event) {
+  $('#edit-profile-button').prop("disabled",
+      emailValue === emailInput.val());
 });
 
 //Ajax обработка-комметариев

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Скатился | Официальный сайт</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="shortcut icon" href="../images/favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <div class="block-profile-header">
+        <a href="/"><h1 id="up">СКАТИЛСЯ</h1></a>
+    </div>
+    <div class="user-profile">
+        <h2>Профиль пользователя</h2>
+        <div class="main-profile-info">
+            <img class="profile-item" src="../images/placeholder.png">
+            <form class="profile-item" th:action="@{/updateUserInfo}" th:object="${user}" method="post">
+                <input th:field="*{id}" type="hidden" th:value="*{id}">
+                <label>Имя пользователя:</label>
+                <input th:field="*{username}" id="not-edit-input" readonly type="text" th:value="*{username}"/>
+                <label>E-mail пользователя:</label>
+                <input th:field="*{email}" id="edit-email-input" type="text" th:value="*{email}">
+                <input th:field="*{password}" type="hidden" th:value="*{password}">
+                <button disabled class="submit-element" id="edit-profile-button" type="submit">Изменить</button>
+            </form>
+        </div>
+        <div th:if="${updateSuccess}" class="success">
+            <label>Ваш E-mail успешно изменен!</label>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="../js/script.js"></script>
+</body>
+</html>

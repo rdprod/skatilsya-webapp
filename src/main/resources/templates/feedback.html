@@ -10,17 +10,24 @@
     <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
 </head>
 <body>
-    <div class="block-logheader user-system">
+    <div class="block-logheader">
         <a class="block-login" id="feedback" href="/"><h1 id="up">СКАТИЛСЯ</h1></a>
-        <div sec:authorize="!isAuthenticated()" class="authorization logout">
-            <a href="/login"><button class="submit_element">Войти</button></a>
+        <div sec:authorize="isAnonymous()" class="authorization logout">
+            <a href="/login"><button class="submit-header-element">Войти</button></a>
         </div>
-        <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post">
+        <div sec:authorize="isAuthenticated()">
             <div class="authorization logout">
-                <p sec:authentication="name"></p>
-                <button class="submit_element" type="submit">(Выйти)</button>
+                <form th:action="@{/profile/{id}(id=${userId})}" method="get">
+                    <button class="submit-header-element" type="submit">
+                        <span sec:authentication="name"></span>
+                    </button>
+                </form>
+<!--                <span id="delimiter">II</span>-->
+                <form th:action="@{/logout}" method="post">
+                    <button class="submit-header-element" type="submit">Выйти</button>
+                </form>
             </div>
-        </form>
+        </div>
     </div>
 
     <div class="main-comment-container">
@@ -36,7 +43,7 @@
                         <span th:text="${comment.text}"></span>
                     </div>
                     <form sec:authorize="hasRole('ADMIN')" th:action="@{/deleteCommentProcess/{id}(id=${comment.id})}" method="get">
-                        <button class="delete_button" type="submit">
+                        <button class="delete-button" type="submit">
                             <img src="images/deleteButton.png" height="30" width="30">
                         </button>
                     </form>
@@ -48,7 +55,7 @@
             <img src="images/placeholder.png">
             <form class="form-comment-container" th:action="@{/addNewCommentProcess}" th:object="${newComment}" method="post">
                 <input type="text" th:field="*{text}" placeholder="Введите Ваш комментарий"/>
-                <button class="submit_element" type="submit">Отправить</button>
+                <button class="submit-element" type="submit">Отправить</button>
             </form>
         </div>
     </div>

@@ -12,9 +12,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -52,7 +50,7 @@ public class UserController {
         Role simpleRole = roleService.findSimpleUserRole();
         user.addRoleToUser(simpleRole);
 
-        userService.saveNewUser(user);
+        userService.saveUser(user);
 
         try {
             request.login(user.getUsername(), originalPassword);
@@ -74,5 +72,20 @@ public class UserController {
 
             return "login";
         }
+    }
+
+    @GetMapping("/profile/{id}")
+    public String showUserProfile(@PathVariable("id") int userId, Model model) {
+        User user = userService.findUserById(userId);
+        model.addAttribute("user", user);
+        return "profile";
+    }
+
+    @PostMapping("/updateUserInfo")
+    public String updateUserInfo(@ModelAttribute User user, Model model) {
+        userService.saveUser(user);
+        model.addAttribute("user", user);
+        model.addAttribute("updateSuccess", true);
+        return "profile";
     }
 }

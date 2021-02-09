@@ -14,7 +14,7 @@
     </div>
 
     <div id="wrapper">
-        <form th:action="@{/login}" method="post" class="form-container">
+        <form class="form-container" th:action="@{/login}" method="post">
             <div id="registration" class="authorization">
                 <h1>Вход</h1>
                 <a href="/registration">Регистрация</a>
@@ -29,7 +29,7 @@
             <input name="username" type="text" autofocus="true" placeholder="Введите Ваш юзернейм"/>
             <label>Пароль:</label>
             <input name="password" type="password" placeholder="Введите Ваш пароль"/>
-            <button class="submit_element" type="submit">Войти</button>
+            <button class="submit-element" type="submit">Войти</button>
         </form>
     </div>
 
