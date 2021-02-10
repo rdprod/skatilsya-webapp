@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "users")
@@ -105,5 +106,10 @@ public class User {
             roles = new HashSet<>();
         }
         roles.add(role);
+    }
+
+    public final String rolesAsString() {
+        return roles.stream().map(Role::getName)
+                .collect(Collectors.joining(", "));
     }
 }

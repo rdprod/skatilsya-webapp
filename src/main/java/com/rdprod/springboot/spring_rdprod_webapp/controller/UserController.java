@@ -13,6 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -75,17 +76,20 @@ public class UserController {
     }
 
     @GetMapping("/profile/{id}")
-    public String showUserProfile(@PathVariable("id") int userId, Model model) {
+    public String showUserProfile(@PathVariable("id") int userId,
+                                  @RequestParam(value = "updated", required = false) boolean updated,
+                                  Model model) {
         User user = userService.findUserById(userId);
         model.addAttribute("user", user);
+        model.addAttribute("updated", updated);
         return "profile";
     }
 
     @PostMapping("/updateUserInfo")
-    public String updateUserInfo(@ModelAttribute User user, Model model) {
+    public String updateUserInfo(@ModelAttribute User user, RedirectAttributes redirectAttributes) {
         userService.saveUser(user);
-        model.addAttribute("user", user);
-        model.addAttribute("updateSuccess", true);
-        return "profile";
+        redirectAttributes.addAttribute("updated", true);
+
+        return "redirect:/profile/" + user.getId();
     }
 }

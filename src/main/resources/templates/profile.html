@@ -13,21 +13,37 @@
         <a href="/"><h1 id="up">СКАТИЛСЯ</h1></a>
     </div>
     <div class="user-profile">
-        <h2>Профиль пользователя</h2>
-        <div class="main-profile-info">
-            <img class="profile-item" src="../images/placeholder.png">
-            <form class="profile-item" th:action="@{/updateUserInfo}" th:object="${user}" method="post">
-                <input th:field="*{id}" type="hidden" th:value="*{id}">
-                <label>Имя пользователя:</label>
-                <input th:field="*{username}" id="not-edit-input" readonly type="text" th:value="*{username}"/>
-                <label>E-mail пользователя:</label>
-                <input th:field="*{email}" id="edit-email-input" type="text" th:value="*{email}">
-                <input th:field="*{password}" type="hidden" th:value="*{password}">
-                <button disabled class="submit-element" id="edit-profile-button" type="submit">Изменить</button>
-            </form>
+        <div class="user-details profile-item">
+            <h2>Профиль пользователя</h2>
+            <div class="main-profile-info">
+                <img class="details-item" src="../images/placeholder.png">
+                <form class="details-item" th:action="@{/updateUserInfo}" th:object="${user}" method="post">
+                    <input th:field="*{id}" type="hidden" th:value="*{id}">
+                    <label>Имя пользователя:</label>
+                    <input th:field="*{username}" class="not-edit-input" readonly type="text" th:value="*{username}"/>
+                    <label>Роли пользователя:</label>
+                    <input class="not-edit-input" readonly type="text" th:value="*{rolesAsString}"/>
+                    <label>E-mail пользователя:</label>
+                    <input th:field="*{email}" id="edit-email-input" type="text" th:value="*{email}"/>
+                    <input th:field="*{password}" type="hidden" th:value="*{password}"/>
+                    <input th:field="*{roles}" type="hidden" th:value="*{roles}"/>
+                    <button disabled class="submit-element" id="edit-profile-button" type="submit">Изменить</button>
+                </form>
+            </div>
+            <div th:if="${updated}" class="success">
+                <label>Ваш E-mail успешно изменен!</label>
+            </div>
         </div>
-        <div th:if="${updateSuccess}" class="success">
-            <label>Ваш E-mail успешно изменен!</label>
+        <div class="user-comments profile-item">
+            <h2>Комментарии пользователя</h2>
+            <div th:if="${user.comments.isEmpty()}">
+                <label>Ничего не найдено</label>
+            </div>
+            <div th:each="comment: ${user.comments}">
+                <div class="user-comment">
+                    <label th:text="${comment.text}"></label>
+                </div>
+            </div>
         </div>
     </div>
 

@@ -273,7 +273,6 @@ a:active {
   font-size: 40px;
   color: #25282a;
   font-weight: 400;
-  opacity: .6;
 }
 
 .authorization a:hover {
@@ -287,6 +286,16 @@ a:active {
 #registration {
   margin-bottom: 5px;
   text-align: center;
+}
+
+#registration a {
+  margin-bottom: 5px;
+  text-align: center;
+  opacity: .6;
+}
+
+#registration a:hover {
+  opacity: 1;
 }
 
 /*Стили для формочки с комментариями*/
@@ -586,6 +595,17 @@ button:hover, input[type=submit]:hover {
   color: #25282a;
 }
 
+.user-profile {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.profile-item {
+  padding: 0 50px;
+}
+
 .main-profile-info {
   background: #ffbad6;
   position: relative;
@@ -596,7 +616,7 @@ button:hover, input[type=submit]:hover {
   padding: 30px;
 }
 
-.user-profile {
+.user-details {
   margin-top: 100px;
   display: flex;
   align-items: center;
@@ -613,11 +633,11 @@ button:hover, input[type=submit]:hover {
   margin-bottom: 10px;
 }
 
-.profile-item {
+.details-item {
   padding: 10px;
 }
 
-#not-edit-input {
+.not-edit-input {
   color: #4a515f;
   opacity: .6;
 }
@@ -628,4 +648,17 @@ button:hover, input[type=submit]:hover {
 
 .submit-element#edit-profile-button:disabled {
 opacity: .6;
+}
+
+.user-comments {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.user-comment {
+  background: #4a515f;
+  color: #ffffff;
+  padding: 5px;
+  margin: 10px 0 10px 0;
 }
