@@ -16,7 +16,12 @@
         <div class="user-details profile-item">
             <h2>Профиль пользователя</h2>
             <div class="main-profile-info">
-                <img class="details-item" src="../images/placeholder.png">
+                <div class="profile-avatar">
+                    <div id="profile-hidden-camera" >
+                        <img src="../images/camera.png">
+                    </div>
+                    <img class="details-item" src="../images/placeholder.png">
+                </div>
                 <form class="details-item" th:action="@{/updateUserInfo}" th:object="${user}" method="post">
                     <input th:field="*{id}" type="hidden" th:value="*{id}">
                     <label>Имя пользователя:</label>

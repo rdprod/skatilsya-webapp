@@ -5,6 +5,7 @@ import com.rdprod.springboot.spring_rdprod_webapp.entity.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -16,5 +17,10 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public Role findSimpleUserRole() {
        return roleRepository.findByName("USER");
+    }
+
+    @Override
+    public List<Role> findAllRoles() {
+        return roleRepository.findAll();
     }
 }

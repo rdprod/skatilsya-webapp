@@ -36,6 +36,10 @@ public class User {
             mappedBy = "user")
     private List<Comment> comments;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "avatar_id")
+    private Avatar avatar;
+
     public User() {
     }
 
@@ -69,6 +73,10 @@ public class User {
         return comments;
     }
 
+    public Avatar getAvatar() {
+        return avatar;
+    }
+
     public void setId(int id) {
         this.id = id;
     }
@@ -91,6 +99,10 @@ public class User {
 
     public void setComments(List<Comment> comments) {
         this.comments = comments;
+    }
+
+    public void setAvatar(Avatar avatar) {
+        this.avatar = avatar;
     }
 
     public void addCommentToUser(Comment comment) {
