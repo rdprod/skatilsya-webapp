@@ -35,6 +35,17 @@ emailInput.keyup(function (event) {
       emailValue === emailInput.val());
 });
 
+//Кнопка добавления аватарки
+let uploadAvatarInput = $('#upload-avatar-input');
+let uploadAvatarButton = $('#upload-avatar-button');
+uploadAvatarInput.on('change', function () {
+  if (uploadAvatarInput.val()) {
+    uploadAvatarButton.css("visibility", 'visible');
+  } else {
+    uploadAvatarButton.css("visibility", 'hidden');
+  }
+})
+
 //Ajax обработка-комметариев
 // $('.form-comment-container').submit(function(e) {
 //
