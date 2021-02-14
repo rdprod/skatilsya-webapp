@@ -16,7 +16,7 @@
             <a href="/login"><button class="submit-header-element">Войти</button></a>
         </div>
         <div sec:authorize="isAuthenticated()" class="authorization logout">
-            <a th:href="@{/profile/{id}(id=${userId})}">
+            <a th:href="@{/profile/{id}(id=${user.id})}">
                 <button class="submit-header-element">
                     <span sec:authentication="name"></span>
                 </button>
@@ -34,7 +34,7 @@
             </div>
             <div th:each="comment: ${comments}" class="comment-area">
                 <div class="comment-items">
-                    <img src="images/placeholder.png">
+                    <img th:src="${comment.user?.avatar} ? '/userAvatarImages/' + ${comment.user.avatar} : '../images/placeholder.png'"/>
                     <div class="comment-text">
                         <h2 th:text="${comment.user.username}"></h2>
                         <span th:text="${comment.text}"></span>
@@ -48,7 +48,7 @@
             </div>
         </div>
         <div sec:authorize="isAuthenticated()" class="comment-area">
-            <img src="images/placeholder.png">
+            <img th:src="${user.avatar} ? '/userAvatarImages/' + ${user.avatar} : '../images/placeholder.png'"/>
             <form class="form-comment-container" th:action="@{/addNewCommentProcess}" th:object="${newComment}" method="post">
                 <input type="text" th:field="*{text}" placeholder="Введите Ваш комментарий"/>
                 <button class="submit-element" type="submit">Отправить</button>

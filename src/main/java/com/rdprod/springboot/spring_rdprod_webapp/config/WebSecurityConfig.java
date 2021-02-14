@@ -1,4 +1,4 @@
-package com.rdprod.springboot.spring_rdprod_webapp.security;
+package com.rdprod.springboot.spring_rdprod_webapp.config;
 
 import com.rdprod.springboot.spring_rdprod_webapp.service.userDetails.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;

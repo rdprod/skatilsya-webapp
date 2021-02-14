@@ -16,14 +16,15 @@
         <div class="user-details profile-item">
             <h2>Профиль пользователя</h2>
             <div class="main-profile-info">
-                <form id="upload-avatar-form" method="post" enctype="multipart/form-data">
+                <form id="upload-avatar-form" th:action="@{/uploadUserAvatar}" method="post" enctype="multipart/form-data">
                     <div class="upload-profile-avatar-div">
                         <div class="profile-avatar">
                             <div id="profile-hidden-camera" >
-                                <img src="../images/camera.png">
-                                <input id="upload-avatar-input" type="file" name="uploadAvatar" accept="image/*">
+                                <img src="../images/camera.png"/>
+                                <input th:field="${user.id}" type="hidden" th:value="${user.id}">
+                                <input id="upload-avatar-input" type="file" name="userAvatar" accept="image/*">
                             </div>
-                            <img class="details-item" src="../images/placeholder.png">
+                            <img class="details-item" th:src="${user.avatar} ? '/userAvatarImages/' + ${user.avatar} : '../images/placeholder.png'"/>
                         </div>
                         <button class="submit-element" id="upload-avatar-button">Загрузить</button>
                     </div>

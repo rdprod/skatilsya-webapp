@@ -1,13 +1,11 @@
 package com.rdprod.springboot.spring_rdprod_webapp.controller;
 
-import com.rdprod.springboot.spring_rdprod_webapp.details.UserDetailsImpl;
 import com.rdprod.springboot.spring_rdprod_webapp.entity.Comment;
 import com.rdprod.springboot.spring_rdprod_webapp.entity.User;
 import com.rdprod.springboot.spring_rdprod_webapp.service.comment.CommentService;
 import com.rdprod.springboot.spring_rdprod_webapp.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -36,7 +34,7 @@ public class CommentController {
         Object principal = auth.getPrincipal();
         if (principal instanceof UserDetails) {
             User user = userService.findUserByUsername(((UserDetails) principal).getUsername());
-            model.addAttribute("userId", user.getId());
+            model.addAttribute("user", user);
         }
 
         return "feedback";
