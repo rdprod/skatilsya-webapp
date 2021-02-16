@@ -16,10 +16,13 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.imageio.ImageIO;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Set;
 import java.util.UUID;
 
 @Controller
@@ -95,6 +98,8 @@ public class UserController {
 
     @PostMapping("/updateUserInfo")
     public String updateUserInfo(@ModelAttribute User user, RedirectAttributes redirectAttributes) {
+        Set<Role> userRoles = userService.findUserById(user.getId()).getRoles();
+        user.setRoles(userRoles);
         userService.saveUser(user);
         redirectAttributes.addAttribute("updated", true);
 
@@ -121,6 +126,14 @@ public class UserController {
             }
             user.setAvatar(finalUserAvatarFilename);
             userService.saveUser(user);
+
+            BufferedImage image = ImageIO.read
+                    (new File(userAvatarPath + "/" + finalUserAvatarFilename));
+            int imageSideSize = Math.min(image.getHeight(), image.getWidth());
+            image = image.getSubimage(image.getWidth() / 2 - imageSideSize / 2,
+                    image.getHeight() / 2 - imageSideSize / 2, imageSideSize, imageSideSize);
+            ImageIO.write(image, finalUserAvatarFilename.split("\\.")[1],
+                    new File(userAvatarPath + "/" + finalUserAvatarFilename));
         }
 
         return "redirect:/profile/" + user.getId();

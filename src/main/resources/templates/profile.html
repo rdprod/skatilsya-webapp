@@ -24,7 +24,7 @@
                                 <input th:field="${user.id}" type="hidden" th:value="${user.id}">
                                 <input id="upload-avatar-input" type="file" name="userAvatar" accept="image/*">
                             </div>
-                            <img class="details-item" th:src="${user.avatar} ? '/userAvatarImages/' + ${user.avatar} : '../images/placeholder.png'"/>
+                            <img id="profile-avatar-img" class="details-item" th:src="${user.avatar} ? '/userAvatarImages/' + ${user.avatar} : '../images/placeholder.png'"/>
                         </div>
                         <button class="submit-element" id="upload-avatar-button">Загрузить</button>
                     </div>
@@ -38,7 +38,7 @@
                     <label>E-mail пользователя:</label>
                     <input th:field="*{email}" id="edit-email-input" type="text" th:value="*{email}"/>
                     <input th:field="*{password}" type="hidden" th:value="*{password}"/>
-                    <input th:field="*{roles}" type="hidden" th:value="*{roles}"/>
+                    <input th:field="*{avatar}" type="hidden" th:value="*{avatar}"/>
                     <button disabled class="submit-element" id="edit-profile-button" type="submit">Изменить</button>
                 </form>
             </div>

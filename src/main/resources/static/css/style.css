@@ -366,10 +366,7 @@ a:active {
 
 .comment-items {
   display: flex;
-}
-
-.comment-items > .delete-button {
-
+  align-items: center;
 }
 
 .form-comment-container {
@@ -481,6 +478,10 @@ input[type=text] {
   text-indent: 20px;
 }
 
+#new-comment-input {
+  margin: auto;
+}
+
 .submit-element {
   background: #5c34fa;
   opacity: .8;
@@ -575,6 +576,7 @@ button:hover, input[type=submit]:hover {
 }
 
 .delete-button {
+  top: 20px;
   right: 50px;
   border: 0;
   background: transparent;
@@ -635,6 +637,11 @@ button:hover, input[type=submit]:hover {
 
 .details-item {
   padding: 10px;
+}
+
+#profile-avatar-img {
+  height: 150px;
+  width: 150px;
 }
 
 .not-edit-input {

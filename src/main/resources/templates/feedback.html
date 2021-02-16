@@ -50,7 +50,7 @@
         <div sec:authorize="isAuthenticated()" class="comment-area">
             <img th:src="${user.avatar} ? '/userAvatarImages/' + ${user.avatar} : '../images/placeholder.png'"/>
             <form class="form-comment-container" th:action="@{/addNewCommentProcess}" th:object="${newComment}" method="post">
-                <input type="text" th:field="*{text}" placeholder="Введите Ваш комментарий"/>
+                <input id="new-comment-input" type="text" th:field="*{text}" placeholder="Введите Ваш комментарий"/>
                 <button class="submit-element" type="submit">Отправить</button>
             </form>
         </div>
