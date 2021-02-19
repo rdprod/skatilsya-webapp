@@ -564,13 +564,13 @@ button:hover, input[type=submit]:hover {
 /* Конец блока стилей авторизации */
 
 .error {
-  margin-bottom: 5px;
-  color: red; 
+  margin-bottom: 10px;
+  color: red;
   text-align: left;
 }
 
 .success {
-  margin-bottom: 5px;
+  margin-bottom: 10px;
   color: green;
   text-align: left;
 }

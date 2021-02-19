@@ -19,9 +19,19 @@
                 <h1>Регистрация</h1>
                 <a href="/login">Вход</a>
             </div>
-            <label>Имя пользователя: <input type="text" th:field="*{username}" placeholder="Введите Ваш юзернейм"/></label>
-            <label>E-mail: <input type="email" th:field="*{email}" placeholder="Введите Ваш E-mail"/></label>
-            <label>Пароль: <input type="password" th:field="*{password}" placeholder="Введите Ваш пароль"/></label>
+            <label>Имя пользователя:</label><input type="text" th:field="*{username}" placeholder="Введите Ваш юзернейм"/>
+            <div class="error">
+                <label th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Ошибка имени пользователя</label>
+            </div>
+            <label>E-mail:</label><input type="email" th:field="*{email}" placeholder="Введите Ваш E-mail"/>
+            <div class="error">
+                <label th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Ошибка почты пользователя</label>
+            </div>
+            <label>Пароль:</label><input type="password" th:field="*{password}" placeholder="Введите Ваш пароль"/>
+            <div class="error">
+                <label th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Ошибка пароля пользователя</label>
+            </div>
+            <label>Повторите пароль:</label><input type="password" th:field="*{confirmPassword}" placeholder="Повторите Ваш пароль"/>
             <button class="submit-element" type="submit">Зарегистрироваться</button>
         </form>
     </div>

@@ -1,5 +1,6 @@
 package com.rdprod.springboot.spring_rdprod_webapp.controller;
 
+import com.rdprod.springboot.spring_rdprod_webapp.details.UserDetailsImpl;
 import com.rdprod.springboot.spring_rdprod_webapp.entity.Comment;
 import com.rdprod.springboot.spring_rdprod_webapp.entity.User;
 import com.rdprod.springboot.spring_rdprod_webapp.service.comment.CommentService;
@@ -33,7 +34,7 @@ public class CommentController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Object principal = auth.getPrincipal();
         if (principal instanceof UserDetails) {
-            User user = userService.findUserByUsername(((UserDetails) principal).getUsername());
+            User user = userService.findUserByUsername(((UserDetailsImpl) principal).getUsername());
             model.addAttribute("user", user);
         }
 

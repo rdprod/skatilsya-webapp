@@ -1,6 +1,11 @@
 package com.rdprod.springboot.spring_rdprod_webapp.entity;
 
+import com.rdprod.springboot.spring_rdprod_webapp.validation.CheckUsername;
+
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -17,13 +22,23 @@ public class User {
     private int id;
 
     @Column(name = "username")
+    @NotBlank(message = "Имя не может быть пустым!")
+    @CheckUsername(message = "Такое имя уже занято!")
     private String username;
 
     @Column(name = "email")
+    @Pattern(regexp = ".*[a-zA-Z]@.*[a-zA-Z]\\..*[a-zA-Z]",
+            message = "Некорректный E-mail!")
     private String email;
 
     @Column(name = "password")
+    @Pattern(regexp = "(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{6,}",
+            message = "Пароль должен быть минимум 6 символов и состоять из латинских " +
+                    "букв нижнего и верхнего регистров, а также цифр!")
     private String password;
+
+    @Transient
+    private String confirmPassword;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.DETACH, CascadeType.MERGE,
             CascadeType.REFRESH, CascadeType.PERSIST})
@@ -64,6 +79,10 @@ public class User {
         return password;
     }
 
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
     public Set<Role> getRoles() {
         return roles;
     }
@@ -90,6 +109,10 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
     }
 
     public void setRoles(Set<Role> roles) {

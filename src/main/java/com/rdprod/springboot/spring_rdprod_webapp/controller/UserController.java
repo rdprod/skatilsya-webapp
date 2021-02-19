@@ -1,5 +1,6 @@
 package com.rdprod.springboot.spring_rdprod_webapp.controller;
 
+import com.rdprod.springboot.spring_rdprod_webapp.details.UserDetailsImpl;
 import com.rdprod.springboot.spring_rdprod_webapp.entity.Role;
 import com.rdprod.springboot.spring_rdprod_webapp.entity.User;
 import com.rdprod.springboot.spring_rdprod_webapp.service.role.RoleService;
@@ -9,9 +10,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -19,6 +22,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.imageio.ImageIO;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -53,7 +57,12 @@ public class UserController {
     }
 
     @PostMapping("/registrationProcess")
-    public String registerProcess(@ModelAttribute("user") User user, HttpServletRequest request) {
+    public String registerProcess(@Valid @ModelAttribute("user") User user, BindingResult bindingResult, HttpServletRequest request) {
+        if (bindingResult.hasErrors()) {
+            System.out.println("Ошибки валидации");
+            return "registration";
+        }
+
         String originalPassword = user.getPassword();
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String encodedPassword = passwordEncoder.encode(originalPassword);
@@ -98,8 +107,11 @@ public class UserController {
 
     @PostMapping("/updateUserInfo")
     public String updateUserInfo(@ModelAttribute User user, RedirectAttributes redirectAttributes) {
-        Set<Role> userRoles = userService.findUserById(user.getId()).getRoles();
-        user.setRoles(userRoles);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Object principal = auth.getPrincipal();
+        if (principal instanceof UserDetails) {
+            user.setRoles(((UserDetailsImpl) principal).getRoles());
+        }
         userService.saveUser(user);
         redirectAttributes.addAttribute("updated", true);
 
