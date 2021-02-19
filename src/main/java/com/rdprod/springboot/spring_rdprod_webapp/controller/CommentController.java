@@ -11,8 +11,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.security.Principal;
 import java.util.List;
 
@@ -42,7 +44,12 @@ public class CommentController {
     }
 
     @PostMapping("/addNewCommentProcess")
-    public String addNewComment(@ModelAttribute("newComment") Comment newComment, Principal principal) {
+    public String addNewComment(@Valid @ModelAttribute("newComment") Comment newComment, BindingResult bindingResult,
+                                Principal principal) {
+        if (bindingResult.hasErrors()) {
+            System.out.println("Ошибки валидации");
+            return "redirect:/feedback";
+        }
         User user = userService.findUserByUsername(principal.getName());
         newComment.setUser(user);
         commentService.addNewComment(newComment);

@@ -1,42 +1,45 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Скатился | Официальный сайт</title>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
-</head>
-<body>
-    <div class="block-logheader-form">
-        <a class="block-login" href="/"><h1 id="up">СКАТИЛСЯ</h1></a>
-    </div>
+    <head>
+        <meta charset="UTF-8">
+        <title>Скатился | Официальный сайт</title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <link rel="stylesheet" href="../css/style.css">
+        <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+    </head>
+    <body>
+        <div class="block-logheader-form">
+            <a class="block-login" href="/"><h1 id="up">СКАТИЛСЯ</h1></a>
+        </div>
 
-    <div id="wrapper">
-        <form class="form-container" th:action="@{/registrationProcess}" th:object="${user}" method="post">
-            <div id="registration" class="authorization">
-                <h1>Регистрация</h1>
-                <a href="/login">Вход</a>
-            </div>
-            <label>Имя пользователя:</label><input type="text" th:field="*{username}" placeholder="Введите Ваш юзернейм"/>
-            <div class="error">
-                <label th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Ошибка имени пользователя</label>
-            </div>
-            <label>E-mail:</label><input type="email" th:field="*{email}" placeholder="Введите Ваш E-mail"/>
-            <div class="error">
-                <label th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Ошибка почты пользователя</label>
-            </div>
-            <label>Пароль:</label><input type="password" th:field="*{password}" placeholder="Введите Ваш пароль"/>
-            <div class="error">
-                <label th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Ошибка пароля пользователя</label>
-            </div>
-            <label>Повторите пароль:</label><input type="password" th:field="*{confirmPassword}" placeholder="Повторите Ваш пароль"/>
-            <button class="submit-element" type="submit">Зарегистрироваться</button>
-        </form>
-    </div>
+        <div id="wrapper">
+            <form class="form-container" th:action="@{/registrationProcess}" th:object="${user}" method="post">
+                <div id="registration" class="authorization">
+                    <h1>Регистрация</h1>
+                    <a href="/login">Вход</a>
+                </div>
+                <label>Имя пользователя:</label><input type="text" th:field="*{username}" placeholder="Введите Ваш юзернейм"/>
+                <div th:if="${#fields.hasErrors('username')}" class="error">
+                    <label th:errors="*{username}">Ошибка имени пользователя</label>
+                </div>
+                <label>E-mail:</label><input type="email" th:field="*{email}" placeholder="Введите Ваш E-mail"/>
+                <div th:if="${#fields.hasErrors('email')}" class="error">
+                    <label th:errors="*{email}">Ошибка почты пользователя</label>
+                </div>
+                <label>Пароль:</label><input type="password" th:field="*{password}" placeholder="Введите Ваш пароль"/>
+                <div th:if="${#fields.hasErrors('password')}" class="error">
+                    <label th:errors="*{password}">Ошибка пароля пользователя</label>
+                </div>
+                <label>Повторите пароль:</label><input type="password" th:field="*{confirmPassword}" placeholder="Повторите Ваш пароль"/>
+                <div th:if="${#fields.hasErrors()}" class="error">
+                    <label th:errors="${user}">Ошибка пароля пользователя</label>
+                </div>
+                <button class="submit-element" type="submit">Зарегистрироваться</button>
+            </form>
+        </div>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="../js/script.js"></script>
-</body>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="../js/script.js"></script>
+    </body>
 </html>

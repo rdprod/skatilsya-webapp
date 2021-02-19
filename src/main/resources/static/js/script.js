@@ -46,6 +46,13 @@ uploadAvatarInput.on('change', function () {
   }
 })
 
+//Обработка невозможности отправки пустого комментария
+$('#add-new-comment-form').on('submit', function (event) {
+  if ($('#new-comment-input').val().length === 0) {
+    event.preventDefault();
+  }
+});
+
 //Ajax обработка-комметариев
 // $('.form-comment-container').submit(function(e) {
 //

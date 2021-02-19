@@ -1,11 +1,12 @@
 package com.rdprod.springboot.spring_rdprod_webapp.entity;
 
-import com.rdprod.springboot.spring_rdprod_webapp.validation.CheckUsername;
+import com.rdprod.springboot.spring_rdprod_webapp.validation.PasswordsEqualConstraint;
+import com.rdprod.springboot.spring_rdprod_webapp.validation.UsernameExist;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "users")
+@PasswordsEqualConstraint(message = "Пароли не совпадают!")
 public class User {
 
     @Id
@@ -23,7 +25,7 @@ public class User {
 
     @Column(name = "username")
     @NotBlank(message = "Имя не может быть пустым!")
-    @CheckUsername(message = "Такое имя уже занято!")
+    @UsernameExist(message = "Такое имя уже занято!")
     private String username;
 
     @Column(name = "email")

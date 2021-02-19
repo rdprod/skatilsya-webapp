@@ -6,13 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-public class UsernameValidator implements ConstraintValidator<CheckUsername, String> {
+public class UsernameValidator implements ConstraintValidator<UsernameExist, String> {
 
     @Autowired
     UserService userService;
 
     @Override
-    public void initialize(CheckUsername constraintAnnotation) {
+    public void initialize(UsernameExist constraintAnnotation) {
 
     }
 

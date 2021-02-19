@@ -1,6 +1,7 @@
 package com.rdprod.springboot.spring_rdprod_webapp.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "comments")
@@ -12,6 +13,7 @@ public class Comment {
     private int id;
 
     @Column(name = "text")
+    @NotBlank
     private String text;
 
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})

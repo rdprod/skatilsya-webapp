@@ -26,7 +26,6 @@ import javax.validation.Valid;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.Set;
 import java.util.UUID;
 
 @Controller
@@ -57,7 +56,8 @@ public class UserController {
     }
 
     @PostMapping("/registrationProcess")
-    public String registerProcess(@Valid @ModelAttribute("user") User user, BindingResult bindingResult, HttpServletRequest request) {
+    public String registerProcess(@Valid @ModelAttribute("user") User user, BindingResult bindingResult,
+                                  HttpServletRequest request) {
         if (bindingResult.hasErrors()) {
             System.out.println("Ошибки валидации");
             return "registration";
@@ -125,7 +125,7 @@ public class UserController {
         if (userAvatarFile != null) {
             File userAvatarDir = new File(userAvatarPath);
             if (!userAvatarDir.exists()) {
-                System.out.println("User avatar folder create: " + userAvatarDir.mkdir());
+                System.out.println("Папка для хранения аватарок пользователей создана: " + userAvatarDir.mkdir());
             }
 
             String uuidUserAvatarFile = UUID.randomUUID().toString();
@@ -134,7 +134,7 @@ public class UserController {
             userAvatarFile.transferTo(new File(userAvatarPath + "/" + finalUserAvatarFilename));
             if (user.getAvatar() != null) {
                 File oldUserAvatarFile = new File(userAvatarPath + "/" + user.getAvatar());
-                System.out.println("Old user avatar was deleted: " + oldUserAvatarFile.delete());
+                System.out.println("Старая аватарка пользователя была удалена: " + oldUserAvatarFile.delete());
             }
             user.setAvatar(finalUserAvatarFilename);
             userService.saveUser(user);
