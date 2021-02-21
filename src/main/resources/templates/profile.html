@@ -37,13 +37,16 @@
                     <input class="not-edit-input" readonly type="text" th:value="*{rolesAsString}"/>
                     <label>E-mail пользователя:</label>
                     <input th:field="*{email}" id="edit-email-input" type="text" th:value="*{email}"/>
+                    <div th:if="${emailError}" class="error">
+                        <label>Был введен некорректный E-mail!</label>
+                    </div>
                     <input th:field="*{password}" type="hidden" th:value="*{password}"/>
                     <input th:field="*{avatar}" type="hidden" th:value="*{avatar}"/>
+                    <div th:if="${updated}" class="success">
+                        <label>Ваш E-mail успешно изменен!</label>
+                    </div>
                     <button disabled class="submit-element" id="edit-profile-button" type="submit">Изменить</button>
                 </form>
-            </div>
-            <div th:if="${updated}" class="success">
-                <label>Ваш E-mail успешно изменен!</label>
             </div>
         </div>
         <div class="user-comments profile-item">

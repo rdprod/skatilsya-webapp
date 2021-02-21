@@ -12,7 +12,11 @@ public class PasswordsEqualValidator implements ConstraintValidator<PasswordsEqu
 
     @Override
     public boolean isValid(Object candidate, ConstraintValidatorContext constraintValidatorContext) {
-        User user = (User) candidate;
-        return user.getPassword().equals(user.getConfirmPassword());
+        if (candidate instanceof User) {
+            User user = (User) candidate;
+            return user.getPassword().equals(user.getConfirmPassword());
+        } else {
+            return false;
+        }
     }
 }

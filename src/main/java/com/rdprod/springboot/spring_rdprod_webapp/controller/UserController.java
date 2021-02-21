@@ -27,6 +27,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Controller
 public class UserController {
@@ -59,27 +60,32 @@ public class UserController {
     public String registerProcess(@Valid @ModelAttribute("user") User user, BindingResult bindingResult,
                                   HttpServletRequest request) {
         if (bindingResult.hasErrors()) {
-            System.out.println("Ошибки валидации");
+            System.out.println("Ошибки валидации при регистрации пользователя: " +
+                    bindingResult.getAllErrors()
+                            .stream()
+                            .map(Object::toString)
+                            .collect(Collectors.joining(",\n")));
+
             return "registration";
+        } else {
+            String originalPassword = user.getPassword();
+            BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+            String encodedPassword = passwordEncoder.encode(originalPassword);
+            user.setPassword(encodedPassword);
+
+            Role simpleRole = roleService.findSimpleUserRole();
+            user.addRoleToUser(simpleRole);
+
+            userService.saveUser(user);
+
+            try {
+                request.login(user.getUsername(), originalPassword);
+            } catch (ServletException exp) {
+                System.out.println("Ошибка автоматической аутентификации - " + exp);
+            }
+
+            return "redirect:/";
         }
-
-        String originalPassword = user.getPassword();
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        String encodedPassword = passwordEncoder.encode(originalPassword);
-        user.setPassword(encodedPassword);
-
-        Role simpleRole = roleService.findSimpleUserRole();
-        user.addRoleToUser(simpleRole);
-
-        userService.saveUser(user);
-
-        try {
-            request.login(user.getUsername(), originalPassword);
-        } catch (ServletException exp) {
-            System.out.println("Ошибка автоматической аутентификации - " + exp);
-        }
-
-        return "redirect:/";
     }
 
     @GetMapping("/login")
@@ -98,22 +104,37 @@ public class UserController {
     @GetMapping("/profile/{id}")
     public String showUserProfile(@PathVariable("id") int userId,
                                   @RequestParam(value = "updated", required = false) boolean updated,
+                                  @RequestParam(value = "emailError", required = false) boolean emailError,
                                   Model model) {
         User user = userService.findUserById(userId);
         model.addAttribute("user", user);
         model.addAttribute("updated", updated);
+        model.addAttribute("emailError", emailError);
+
         return "profile";
     }
 
     @PostMapping("/updateUserInfo")
-    public String updateUserInfo(@ModelAttribute User user, RedirectAttributes redirectAttributes) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        Object principal = auth.getPrincipal();
-        if (principal instanceof UserDetails) {
-            user.setRoles(((UserDetailsImpl) principal).getRoles());
+    public String updateUserInfo(@Valid @ModelAttribute User user, BindingResult bindingResult,
+                                 RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasFieldErrors("email")) {
+            System.out.println("Ошибка валидации про смене email: " +
+                    bindingResult.getAllErrors()
+                            .stream()
+                            .map(Object::toString)
+                            .collect(Collectors.joining(",\n")));
+
+            redirectAttributes.addAttribute("emailError", true);
+        } else {
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            Object principal = auth.getPrincipal();
+            if (principal instanceof UserDetails) {
+                user.setRoles(((UserDetailsImpl) principal).getRoles());
+            }
+            userService.saveUser(user);
+
+            redirectAttributes.addAttribute("updated", true);
         }
-        userService.saveUser(user);
-        redirectAttributes.addAttribute("updated", true);
 
         return "redirect:/profile/" + user.getId();
     }

@@ -6,7 +6,6 @@ import com.rdprod.springboot.spring_rdprod_webapp.validation.UsernameExist;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -29,7 +28,7 @@ public class User {
     private String username;
 
     @Column(name = "email")
-    @Pattern(regexp = ".*[a-zA-Z]@.*[a-zA-Z]\\..*[a-zA-Z]",
+    @Pattern(regexp = ".*[a-zA-Z0-9]@.*[a-zA-Z0-9.]\\..*[a-zA-Z]",
             message = "Некорректный E-mail!")
     private String email;
 
