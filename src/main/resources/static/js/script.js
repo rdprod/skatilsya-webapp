@@ -53,6 +53,20 @@ $('#add-new-comment-form').on('submit', function (event) {
   }
 });
 
+//Обработка бургер-меню
+let burgerMenu = $(".burger");
+let burgerMenuPopover = $(".menu-popover");
+$(document).ready(function(){
+  burgerMenu.click(function(){
+    burgerMenu.toggleClass("open");
+    if (burgerMenu.hasClass("open")) {
+      burgerMenuPopover.css("display", "flex");
+    } else {
+      burgerMenuPopover.hide();
+    }
+  })
+});
+
 //Ajax обработка-комметариев
 // $('.form-comment-container').submit(function(e) {
 //

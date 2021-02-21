@@ -1,62 +1,75 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org"
       xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
-<head>
-    <meta charset="UTF-8">
-    <title>Скатился | Официальный сайт</title>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
-</head>
-<body>
-    <div class="block-logheader">
-        <a class="block-login" id="feedback" href="/"><h1 id="up">СКАТИЛСЯ</h1></a>
-        <div sec:authorize="isAnonymous()" class="authorization logout">
-            <a href="/login"><button class="submit-header-element">Войти</button></a>
-        </div>
-        <div sec:authorize="isAuthenticated()" class="authorization logout">
-            <a th:href="@{/profile/{id}(id=${user.id})}">
-                <button class="submit-header-element">
-                    <span sec:authentication="name"></span>
-                </button>
-            </a>
-            <form th:action="@{/logout}" method="post">
-                <button class="submit-header-element" type="submit">Выйти</button>
-            </form>
-        </div>
-    </div>
-
-    <div class="main-comment-container">
-        <div class="main-comment-area">
-            <div th:if="${comments.isEmpty()}" class="not-comment">
-                <p>Ни одного комментария пока нет. Вы можете стать первым!</p>
+    <head>
+        <meta charset="UTF-8">
+        <title>Скатился | Официальный сайт</title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <link rel="stylesheet" href="../css/style.css">
+        <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+    </head>
+    <body>
+        <div class="block-logheader">
+            <a class="block-login" id="feedback" href="/"><h1 id="up">СКАТИЛСЯ</h1></a>
+            <div sec:authorize="isAnonymous()" class="authorization logout">
+                <a href="/login"><button class="submit-header-element">Войти</button></a>
             </div>
-            <div th:each="comment: ${comments}" class="comment-area">
-                <div class="comment-items">
-                    <img th:src="${comment.user?.avatar} ? '/userAvatarImages/' + ${comment.user.avatar} : '../images/placeholder.png'"/>
-                    <div class="comment-text">
-                        <h2 th:text="${comment.user.username}"></h2>
-                        <span th:text="${comment.text}"></span>
+            <div sec:authorize="isAuthenticated()" class="burger burger-menu">
+                <div class="burger-icon"></div>
+            </div>
+        </div>
+        <div sec:authorize="isAuthenticated()" class="menu-popover">
+            <div class="menu-popover-item">
+                <img th:src="${user.avatar} ? '/userAvatarImages/' + ${user.avatar} : '../images/placeholder.png'"/>
+                <h2 sec:authentication="name"></h2>
+            </div>
+            <div class="menu-popover-item menu-popover-delimiter"></div>
+            <div class="menu-popover-item">
+                <a th:href="@{/profile/{id}(id=${user.id})}">
+                    <button class="submit-header-element">
+                        <span>Профиль</span>
+                    </button>
+                </a>
+            </div>
+            <div class="menu-popover-item menu-popover-delimiter"></div>
+            <div class="menu-popover-item">
+                <form th:action="@{/logout}" method="post">
+                    <button class="submit-header-element" type="submit">Выйти</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="main-comment-container">
+            <div class="main-comment-area">
+                <div th:if="${comments.isEmpty()}" class="not-comment">
+                    <p>Ни одного комментария пока нет. Вы можете стать первым!</p>
+                </div>
+                <div th:each="comment: ${comments}" class="comment-area">
+                    <div class="comment-items">
+                        <img th:src="${comment.user?.avatar} ? '/userAvatarImages/' + ${comment.user.avatar} : '../images/placeholder.png'"/>
+                        <div class="comment-text">
+                            <h2 th:text="${comment.user.username}"></h2>
+                            <span th:text="${comment.text}"></span>
+                        </div>
+                        <form sec:authorize="hasRole('ADMIN')" th:action="@{/deleteCommentProcess/{id}(id=${comment.id})}" method="get">
+                            <button class="delete-button" type="submit">
+                                <img src="images/deleteButton.png" height="30" width="30">
+                            </button>
+                        </form>
                     </div>
-                    <form sec:authorize="hasRole('ADMIN')" th:action="@{/deleteCommentProcess/{id}(id=${comment.id})}" method="get">
-                        <button class="delete-button" type="submit">
-                            <img src="images/deleteButton.png" height="30" width="30">
-                        </button>
-                    </form>
                 </div>
             </div>
+            <div sec:authorize="isAuthenticated()" class="comment-area">
+                <img th:src="${user.avatar} ? '/userAvatarImages/' + ${user.avatar} : '../images/placeholder.png'"/>
+                <form class="form-comment-container" id="add-new-comment-form" th:action="@{/addNewCommentProcess}" th:object="${newComment}" method="post">
+                    <input id="new-comment-input" type="text" th:field="*{text}" placeholder="Введите Ваш комментарий"/>
+                    <button class="submit-element" id="add-new-comment-button" type="submit">Отправить</button>
+                </form>
+            </div>
         </div>
-        <div sec:authorize="isAuthenticated()" class="comment-area">
-            <img th:src="${user.avatar} ? '/userAvatarImages/' + ${user.avatar} : '../images/placeholder.png'"/>
-            <form class="form-comment-container" id="add-new-comment-form" th:action="@{/addNewCommentProcess}" th:object="${newComment}" method="post">
-                <input id="new-comment-input" type="text" th:field="*{text}" placeholder="Введите Ваш комментарий"/>
-                <button class="submit-element" id="add-new-comment-button" type="submit">Отправить</button>
-            </form>
-        </div>
-    </div>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="../js/script.js"></script>
-</body>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="../js/script.js"></script>
+    </body>
 </html>
