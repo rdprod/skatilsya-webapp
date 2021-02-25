@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -26,6 +27,8 @@ import javax.validation.Valid;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.security.Principal;
+import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -105,18 +108,27 @@ public class UserController {
     public String showUserProfile(@PathVariable("id") int userId,
                                   @RequestParam(value = "updated", required = false) boolean updated,
                                   @RequestParam(value = "emailError", required = false) boolean emailError,
-                                  Model model) {
-        User user = userService.findUserById(userId);
-        model.addAttribute("user", user);
-        model.addAttribute("updated", updated);
-        model.addAttribute("emailError", emailError);
+                                  Model model, Principal principal) {
+        UserDetailsImpl currentUserDetails = ((UserDetailsImpl)((UsernamePasswordAuthenticationToken) principal)
+                .getPrincipal());
 
-        return "profile";
+        if (currentUserDetails.getId() == userId || currentUserDetails.getAuthorities()
+                .stream().anyMatch(role -> ((SimpleGrantedAuthority) role).getAuthority().contains("ADMIN"))) {
+            User user = userService.findUserById(userId);
+            model.addAttribute("user", user);
+            model.addAttribute("updated", updated);
+            model.addAttribute("emailError", emailError);
+
+            return "profile";
+        } else {
+
+            return "redirect:/profile/" + currentUserDetails.getId();
+        }
     }
 
     @PostMapping("/updateUserInfo")
     public String updateUserInfo(@Valid @ModelAttribute User user, BindingResult bindingResult,
-                                 RedirectAttributes redirectAttributes) {
+                                 RedirectAttributes redirectAttributes, Principal principal) {
         if (bindingResult.hasFieldErrors("email")) {
             System.out.println("Ошибка валидации про смене email: " +
                     bindingResult.getAllErrors()
@@ -126,11 +138,9 @@ public class UserController {
 
             redirectAttributes.addAttribute("emailError", true);
         } else {
-            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-            Object principal = auth.getPrincipal();
-            if (principal instanceof UserDetails) {
-                user.setRoles(((UserDetailsImpl) principal).getRoles());
-            }
+            Set<Role> roles = ((UserDetailsImpl)((UsernamePasswordAuthenticationToken) principal)
+                    .getPrincipal()).getRoles();
+            user.setRoles(roles);
             userService.saveUser(user);
 
             redirectAttributes.addAttribute("updated", true);

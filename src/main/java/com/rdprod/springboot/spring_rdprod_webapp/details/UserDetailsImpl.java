@@ -68,4 +68,8 @@ public class UserDetailsImpl implements UserDetails {
     public Set<Role> getRoles() {
         return user.getRoles();
     }
+
+    public int getId() {
+        return user.getId();
+    }
 }
