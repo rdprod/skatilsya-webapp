@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
+    <head>
+        <meta charset="UTF-8">
+        <title>Скатился | Официальный сайт</title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <link rel="stylesheet" href="../css/style.css">
+        <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+    </head>
+    <body>
+        <div class="block-events-header">
+            <a href="/"><h1 id="up">СКАТИЛСЯ</h1></a>
+        </div>
+        <div class="main-event-container">
+            <div th:if="${events.isEmpty()}" class="not-events">
+                <p>Ни одного события пока нет. Скоро их тут будет много!</p>
+            </div>
+            <div th:each="event: ${events}" class="event-area">
+                <div class="event-item">
+                    <div class="event-item-header">
+                        <label id="event-theme" th:text="${event.theme}"></label>
+                        <span th:text="${event.date}"></span>
+                    </div>
+                    <div class="event-item-text">
+                        <label th:text="${event.text}"></label>
+                        <span th:text="${event.likes}"></span>
+                    </div>
+                </div>
+            </div>
+<!--            <div sec:authorize="hasRole('MODERATOR')" class="event-area">-->
+<!--                <form  th:action="@{/addNewEventProcess}" th:object="${newEvent}" method="post">-->
+<!--                    <input id="new-event-input" type="text" th:field="*{text}" placeholder="Напишите новое событие"/>-->
+<!--                    <input type="hidden" th:field="*{date}" th:value="${#dates.format(#dates.createNow(), 'dd MM yyyy HH:mm')}"/>-->
+<!--                    <button class="submit-element" id="add-new-comment-button" type="submit">Отправить</button>-->
+<!--                </form>-->
+<!--            </div>-->
+        </div>
+    </body>
+</html>

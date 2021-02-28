@@ -1,3 +1,6 @@
+/* --------------------------
+ БЛОК СТИЛЕЙ ГЛАВНОЙ СТРАНИЦЫ
+ --------------------------- */
 html, body {
   margin: 0;
   padding: 0;
@@ -67,7 +70,7 @@ a:active {
 
 .links {
   font-size: 40px;
-  font-weight: 400; 
+  font-weight: 400;
 }
 
 .local nav {
@@ -138,7 +141,7 @@ a:active {
 
 .video iframe {
   padding: 20px;
-  
+
 }
 
 .video ul {
@@ -222,7 +225,9 @@ a:active {
   width: 40px;
 }
 
-/* Начало блока стилей для авторизации */
+/* --------------------------
+    БЛОК СТИЛЕЙ АВТОРИЗАЦИИ
+ --------------------------- */
 .block-login {
   display: flex;
   justify-content: space-around;
@@ -298,7 +303,9 @@ a:active {
   opacity: 1;
 }
 
-/*Стили для формочки с комментариями*/
+/* --------------------------
+   БЛОК СТИЛЕЙ КОММЕНТАРИЕВ
+ --------------------------- */
 .comment-username {
   top: 50%;
   left: 50%;
@@ -310,14 +317,9 @@ a:active {
   font-size: 30px;
 }
 
-.not-comment {
-  height:250px;
-}
-
-.not-comment p {
-  vertical-align: middle;
-  text-align: center;
-  line-height: 250px;
+.not-comments {
+  position: relative;
+  top: 250px;
 }
 
 .main-comment-container {
@@ -337,7 +339,6 @@ a:active {
   width: 800px;
   background-color: #ffca28;
   padding: 20px;
-
 }
 
 .comment-area form {
@@ -364,41 +365,23 @@ a:active {
   width: 60px;
 }
 
-.comment-items {
+.comment-item {
   display: flex;
   align-items: center;
 }
 
-.form-comment-container {
-  display: flex;
-  flex-direction: column;
-}
-
-.form-comment-container-inside img {
-  margin-right: 10px;
-}
-
-.form-comment-container button {
-  background: #5c34fa;
-  opacity: .8;
-  border: none;
-  color: #ffffff;
-  cursor: pointer;
-  font-family: 'Raleway', sans-serif;
-  font-size: 27px;
-  height: 72px;
-  width: 100%;
+.comment-area button {
   margin-top: 10px;
-  margin-bottom: 0;
-  overflow: hidden;
 }
 
-.form-comment-container-inside {
-  display: flex;
-  align-items: flex-start;
+.delete-button {
+  top: 20px;
+  right: 50px;
+  border: 0;
+  background: transparent;
+  opacity: .5;
+  position: absolute;
 }
-
-@import url(http://fonts.googleapis.com/css?family=Raleway:700,800);
 
 html, body { margin: 0; }
 
@@ -417,13 +400,13 @@ html, body { margin: 0; }
 
 #arrow { transition: .8s cubic-bezier(0.6, 0.01, 0.99, 1.01); }
 
-#wrapper { 
+#wrapper {
   display: flex;
   flex-direction: column;
   overflow: hidden;
 }
 
-#wrapper span, input { 
+#wrapper span, input {
   margin-bottom: 10px;
 }
 
@@ -535,34 +518,9 @@ button:hover, input[type=submit]:hover {
   color: #ffffff;
 }
 
-@keyframes fadeOut {
-  0% { 
-    opacity: 1
-  }
-  100% {
-    opacity: 0;
-  }
-}
-
-@keyframes fadeIn {
-  0% { 
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
-.fade-in {
-  animation: fadeIn .5s ease;
-}
-
-.fade-out {
-  animation: fadeOut .5s ease;
-}
-
-/* Конец блока стилей авторизации */
-
+/* --------------------------
+    КЛАССЫ ВАЛИДАЦИИ
+ --------------------------- */
 .error {
   margin-bottom: 10px;
   color: red;
@@ -575,16 +533,9 @@ button:hover, input[type=submit]:hover {
   text-align: left;
 }
 
-.delete-button {
-  top: 20px;
-  right: 50px;
-  border: 0;
-  background: transparent;
-  opacity: .5;
-  position: absolute;
-}
-
-/* Начало блока стилей профиля */
+/* --------------------------
+    БЛОК СТИЛЕЙ ПРОФИЛЯ
+ --------------------------- */
 .block-profile-header {
   background: #ffca28;
   display: flex;
@@ -722,7 +673,9 @@ opacity: .6;
   align-items: center;
 }
 
-/* Стили бургер-меню */
+/* --------------------------
+         БУРГЕР-МЕНЮ
+ --------------------------- */
 .burger-icon {
   height: 8px;
   width: 50px;
@@ -828,4 +781,63 @@ opacity: .6;
   margin: 5px 0 5px 0;
   width: 150px;
   opacity: .8;
+}
+
+/* --------------------------
+      БЛОК СТИЛЕЙ СОБЫТИЙ
+ --------------------------- */
+.block-events-header {
+  background: #ffbad6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.block-events-header h1 {
+  font-size: 50px;
+  color: #5c34fa;
+}
+
+.main-event-container {
+  display: flex;
+  margin-top: 100px;
+  flex-direction: column;
+  align-items: center;
+}
+
+.not-events {
+  position: relative;
+  top: 250px;
+}
+
+.event-item {
+  width: 1000px;
+  display: contents;
+}
+
+.event-item-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.event-item-text {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.event-area {
+  position: relative;
+  margin-bottom: 10px;
+  width: 800px;
+  background-color: #ffbad6;
+  padding: 20px;
+}
+
+#new-event-input {
+  margin: auto;
+}
+
+#event-theme {
+
 }
