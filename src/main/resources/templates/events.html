@@ -17,25 +17,36 @@
             <div th:if="${events.isEmpty()}" class="not-events">
                 <p>Ни одного события пока нет. Скоро их тут будет много!</p>
             </div>
+            <div sec:authorize="hasRole('MODERATOR')" class="event-area">
+                <form  th:action="@{/addNewEventProcess}" th:object="${newEvent}" method="post">
+                    <input type="hidden" th:field="*{date}" th:value="${#dates.createNow()}"/>
+                    <input type="hidden" th:field="*{likes}" th:value=0/>
+                    <div id="new-event-theme">
+                        <label>Тема нового события: </label>
+                        <label><input type="radio" checked th:field="*{theme}" th:value="История"/>История</label>
+                        <label><input type="radio" th:field="*{theme}" th:value="Шутка"/>Шутка</label>
+                        <label><input type="radio" th:field="*{theme}" th:value="Разное"/>Разное</label>
+                    </div>
+                    <textarea id="new-event-textarea" th:field="*{text}"></textarea>
+                    <button class="submit-element" id="add-new-comment-button" type="submit">Добавить</button>
+                </form>
+            </div>
             <div th:each="event: ${events}" class="event-area">
                 <div class="event-item">
                     <div class="event-item-header">
                         <label id="event-theme" th:text="${event.theme}"></label>
-                        <span th:text="${event.date}"></span>
+                        <label th:text="${#dates.format(event.date, 'dd MMMM yyyy HH:mm')}"></label>
                     </div>
+                    <div class="event-delimiter"></div>
                     <div class="event-item-text">
-                        <label th:text="${event.text}"></label>
-                        <span th:text="${event.likes}"></span>
+                        <label id="event-text" th:text="${event.text}"></label>
+                    </div>
+                    <div class="event-item-likes">
+                        <label id="event-likes" th:text="${event.likes}"></label>
+                        <img src="../images/hearth-button.png"/>
                     </div>
                 </div>
             </div>
-<!--            <div sec:authorize="hasRole('MODERATOR')" class="event-area">-->
-<!--                <form  th:action="@{/addNewEventProcess}" th:object="${newEvent}" method="post">-->
-<!--                    <input id="new-event-input" type="text" th:field="*{text}" placeholder="Напишите новое событие"/>-->
-<!--                    <input type="hidden" th:field="*{date}" th:value="${#dates.format(#dates.createNow(), 'dd MM yyyy HH:mm')}"/>-->
-<!--                    <button class="submit-element" id="add-new-comment-button" type="submit">Отправить</button>-->
-<!--                </form>-->
-<!--            </div>-->
         </div>
     </body>
 </html>

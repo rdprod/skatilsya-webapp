@@ -1,5 +1,7 @@
 package com.rdprod.springboot.spring_rdprod_webapp.entity;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -18,6 +20,7 @@ public class Event {
     @Column(name = "theme")
     private String theme;
 
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @Column(name = "date")
     private Date date;
 

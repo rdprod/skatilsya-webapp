@@ -375,7 +375,7 @@ a:active {
 }
 
 .delete-button {
-  top: 20px;
+  top: 10px;
   right: 50px;
   border: 0;
   background: transparent;
@@ -404,10 +404,6 @@ html, body { margin: 0; }
   display: flex;
   flex-direction: column;
   overflow: hidden;
-}
-
-#wrapper span, input {
-  margin-bottom: 10px;
 }
 
 .form-container {
@@ -822,8 +818,18 @@ opacity: .6;
 
 .event-item-text {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
+  text-align: justify;
+}
+
+.event-item-likes {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 0 2px 0 2px;
+}
+
+.event-item-likes img {
+  height: 25px;
 }
 
 .event-area {
@@ -834,10 +840,37 @@ opacity: .6;
   padding: 20px;
 }
 
-#new-event-input {
-  margin: auto;
+#new-event-textarea {
+  resize: none;
+  background: #f5f5f5;
+  border: none;
+  border-radius: 8px;
+  font-size: 24px;
+  font-family: 'Raleway', sans-serif;
+  color: #25282a;
+  height: 144px;
+  width: 99.5%;
+  margin-bottom: 5px;
+}
+
+#new-event-theme {
+  padding-bottom: 10px;
 }
 
 #event-theme {
+  font-weight: 600;
+}
 
+#event-likes {
+  padding-right: 5px;
+}
+
+#event-text {
+
+}
+
+.event-delimiter {
+  border: solid 1px #25282a;
+  margin: 5px 0 5px 0;
+  opacity: .8;
 }

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -28,6 +29,7 @@ public class EventController {
 
     @PostMapping("/addNewEventProcess")
     public String addNewEvent(@ModelAttribute("newEvent") Event newEvent) {
+        newEvent.setDate(new Date());
         eventService.addNewEvent(newEvent);
 
         return "redirect:/events";
