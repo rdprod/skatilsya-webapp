@@ -13,7 +13,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Entity
-@Table(name = "users")
+@Table(name = "account")
 @PasswordsEqualConstraint(message = "Пароли не совпадают!")
 public class User {
 
@@ -43,8 +43,8 @@ public class User {
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.DETACH, CascadeType.MERGE,
             CascadeType.REFRESH, CascadeType.PERSIST})
-    @JoinTable(name = "users_roles",
-            joinColumns = @JoinColumn(name = "user_id"),
+    @JoinTable(name = "account_role",
+            joinColumns = @JoinColumn(name = "account_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 

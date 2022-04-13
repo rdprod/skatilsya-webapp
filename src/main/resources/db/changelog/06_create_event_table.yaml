@@ -1,0 +1,34 @@
+databaseChangeLog:
+  - changeSet:
+      id: 6
+      author: rdvorin
+      changes:
+        - createTable:
+            tableName: event
+            columns:
+              - column:
+                  name: id
+                  type: serial
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: text
+                  type: varchar
+                  constraints:
+                    nullable: false
+              - column:
+                  name: theme
+                  type: varchar
+                  constraints:
+                    nullable: false
+              - column:
+                  name: date
+                  type: date
+                  constraints:
+                    nullable: false
+              - column:
+                  name: likes
+                  type: int
+
+

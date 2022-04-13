@@ -4,7 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
 @Entity
-@Table(name = "comments")
+@Table(name = "comment")
 public class Comment {
 
     @Id
@@ -17,7 +17,7 @@ public class Comment {
     private String text;
 
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "account_id")
     private User user;
 
     public Comment() {

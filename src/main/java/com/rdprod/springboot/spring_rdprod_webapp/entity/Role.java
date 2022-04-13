@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "roles")
+@Table(name = "role")
 public class Role {
 
     @Id
@@ -18,9 +18,9 @@ public class Role {
 
     @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE,
             CascadeType.REFRESH, CascadeType.PERSIST})
-    @JoinTable(name = "users_roles",
+    @JoinTable(name = "account_role",
             joinColumns = @JoinColumn(name = "role_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id"))
+            inverseJoinColumns = @JoinColumn(name = "account_id"))
     private Set<User> users;
 
     public Role() {

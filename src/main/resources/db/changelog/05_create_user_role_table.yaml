@@ -1,0 +1,29 @@
+databaseChangeLog:
+  - changeSet:
+      id: 5
+      author: rdvorin
+      changes:
+        - createTable:
+            tableName: account_role
+            columns:
+              - column:
+                  name: id
+                  type: serial
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: account_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    foreignKeyName: account_role_account_fkey
+                    references: account(id)
+              - column:
+                  name: role_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    foreignKeyName: account_role_role_fkey
+                    references: role(id)
+
