@@ -2,7 +2,6 @@ package com.rdprod.springboot.spring_rdprod_webapp.service.comment;
 
 import com.rdprod.springboot.spring_rdprod_webapp.dao.CommentRepository;
 import com.rdprod.springboot.spring_rdprod_webapp.entity.Comment;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,8 +9,11 @@ import java.util.List;
 @Service
 public class CommentServiceImpl implements CommentService {
 
-    @Autowired
-    private CommentRepository commentRepository;
+    private final CommentRepository commentRepository;
+
+    public CommentServiceImpl(CommentRepository commentRepository) {
+        this.commentRepository = commentRepository;
+    }
 
     @Override
     public List<Comment> findAllComments() {

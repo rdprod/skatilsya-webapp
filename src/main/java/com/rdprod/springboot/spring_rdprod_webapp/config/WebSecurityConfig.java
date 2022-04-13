@@ -1,5 +1,6 @@
 package com.rdprod.springboot.spring_rdprod_webapp.config;
 
+import com.rdprod.springboot.spring_rdprod_webapp.dao.UserRepository;
 import com.rdprod.springboot.spring_rdprod_webapp.service.userDetails.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -18,12 +19,16 @@ import javax.sql.DataSource;
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    DataSource dataSource;
+
+    private final UserRepository userRepository;
+
+    public WebSecurityConfig(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @Bean
     public UserDetailsService userDetailsService() {
-        return new UserDetailsServiceImpl();
+        return new UserDetailsServiceImpl(userRepository);
     }
 
     @Bean

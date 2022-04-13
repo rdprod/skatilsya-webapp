@@ -2,6 +2,10 @@ package com.rdprod.springboot.spring_rdprod_webapp.entity;
 
 import com.rdprod.springboot.spring_rdprod_webapp.validation.PasswordsEqualConstraint;
 import com.rdprod.springboot.spring_rdprod_webapp.validation.UsernameExist;
+import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -14,6 +18,9 @@ import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "account")
+@Getter
+@Setter
+@NoArgsConstructor
 @PasswordsEqualConstraint(message = "Пароли не совпадают!")
 public class User {
 
@@ -55,77 +62,10 @@ public class User {
     @Column(name = "avatar")
     private String avatar;
 
-    public User() {
-    }
-
     public User(String username, String email, String password) {
         this.username = username;
         this.email = email;
         this.password = password;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public String getConfirmPassword() {
-        return confirmPassword;
-    }
-
-    public Set<Role> getRoles() {
-        return roles;
-    }
-
-    public List<Comment> getComments() {
-        return comments;
-    }
-
-    public String getAvatar() {
-        return avatar;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public void setUsername(String nickName) {
-        this.username = nickName;
-    }
-
-    public void setEmail(String eMail) {
-        this.email = eMail;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public void setConfirmPassword(String confirmPassword) {
-        this.confirmPassword = confirmPassword;
-    }
-
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
-    }
-
-    public void setComments(List<Comment> comments) {
-        this.comments = comments;
-    }
-
-    public void setAvatar(String avatar) {
-        this.avatar = avatar;
     }
 
     public void addCommentToUser(Comment comment) {

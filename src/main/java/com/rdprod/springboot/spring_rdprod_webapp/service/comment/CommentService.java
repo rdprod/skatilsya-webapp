@@ -6,9 +6,9 @@ import java.util.List;
 
 public interface CommentService {
 
-    public List<Comment> findAllComments();
+    List<Comment> findAllComments();
 
-    public void addNewComment(Comment comment);
+    void addNewComment(Comment comment);
 
-    public void deleteComment(int id);
+    void deleteComment(int id);
 }

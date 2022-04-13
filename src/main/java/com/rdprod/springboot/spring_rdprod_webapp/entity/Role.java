@@ -1,11 +1,16 @@
 package com.rdprod.springboot.spring_rdprod_webapp.entity;
 
+import lombok.*;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Table(name = "role")
+@Getter
+@Setter
+@NoArgsConstructor
 public class Role {
 
     @Id
@@ -23,35 +28,8 @@ public class Role {
             inverseJoinColumns = @JoinColumn(name = "account_id"))
     private Set<User> users;
 
-    public Role() {
-    }
-
     public Role(String name) {
         this.name = name;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Set<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(Set<User> users) {
-        this.users = users;
     }
 
     public void addUserToRole(User user) {

@@ -15,8 +15,11 @@ import java.util.List;
 @Controller
 public class EventController {
 
-    @Autowired
-    EventService eventService;
+    private final EventService eventService;
+
+    public EventController(EventService eventService) {
+        this.eventService = eventService;
+    }
 
     @GetMapping("/events")
     public String showEventsPage(Model model) {

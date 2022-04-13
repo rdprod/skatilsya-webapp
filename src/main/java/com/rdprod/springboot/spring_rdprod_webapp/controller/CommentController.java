@@ -21,11 +21,15 @@ import java.util.List;
 @Controller
 public class CommentController {
 
-    @Autowired
-    CommentService commentService;
+    private final CommentService commentService;
 
-    @Autowired
-    UserService userService;
+    private final UserService userService;
+
+    public CommentController(CommentService commentService,
+                             UserService userService) {
+        this.commentService = commentService;
+        this.userService = userService;
+    }
 
     @GetMapping("/feedback")
     public String showFeedbackPage(Model model) {

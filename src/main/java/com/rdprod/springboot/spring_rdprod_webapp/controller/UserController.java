@@ -35,15 +35,18 @@ import java.util.stream.Collectors;
 @Controller
 public class UserController {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
 
-    @Autowired
-    private RoleService roleService;
+    private final RoleService roleService;
 
     @Value("${user_avatar.path}")
     private String userAvatarPath;
 
+    public UserController(UserService userService,
+                          RoleService roleService) {
+        this.userService = userService;
+        this.roleService = roleService;
+    }
 
     @GetMapping("/registration")
     public String showRegistrationForm(Model model) {

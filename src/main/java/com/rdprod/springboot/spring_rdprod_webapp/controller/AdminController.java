@@ -18,14 +18,19 @@ import java.util.List;
 @RequestMapping("/admin")
 public class AdminController {
 
-    @Autowired
-    UserService userService;
+    private final UserService userService;
 
-    @Autowired
-    CommentService commentService;
+    private final CommentService commentService;
 
-    @Autowired
-    RoleService roleService;
+    private final RoleService roleService;
+
+    public AdminController(UserService userService,
+                           CommentService commentService,
+                           RoleService roleService) {
+        this.userService = userService;
+        this.commentService = commentService;
+        this.roleService = roleService;
+    }
 
     @GetMapping("/users")
     public List<User> showAllUsers() {
