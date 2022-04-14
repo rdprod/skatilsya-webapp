@@ -7,7 +7,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
-    @Value("${user_avatar.path}")
+    @Value("${user-avatar.path}")
     private String userAvatarPath;
 
     @Override

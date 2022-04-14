@@ -1,0 +1,27 @@
+# DATABASE
+spring:
+  datasource:
+    url: ${POSTGRES_URL:jdbc:postgresql://localhost:5432/skatilsyadb}
+    username: postgres
+    password: postgres
+  jpa:
+    properties:
+      javax:
+        persistence:
+          validation:
+            mode: none
+      hibernate:
+        format-sql: true
+    show-sql: true
+
+# TEMPLATE
+  thymeleaf:
+    cache: false
+    enabled: true
+    prefix: classpath:/templates/
+    suffix: .html
+    check-template: true
+
+# AVATAR
+user-avatar:
+  path: ../src/main/user_avatar

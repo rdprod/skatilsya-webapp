@@ -39,7 +39,7 @@ public class UserController {
 
     private final RoleService roleService;
 
-    @Value("${user_avatar.path}")
+    @Value("${user-avatar.path}")
     private String userAvatarPath;
 
     public UserController(UserService userService,

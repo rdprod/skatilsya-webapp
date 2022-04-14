@@ -1,0 +1,49 @@
+version: '3'
+
+services:
+  skatilsya_app:
+    container_name: skatilsya_app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: java -Xmx512m -Xms512m -jar /app/application.jar
+    restart: always
+    working_dir: /app/
+    healthcheck:
+      test: [ "CMD", "nc", "-vzw", "2", "127.0.0.1", "8080" ]
+      interval: 10s
+      timeout: 9s
+      retries: 3
+    environment:
+      POSTGRES_URL: jdbc:postgresql://postgres:5432/skatilsyadb
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres:14.2-alpine
+    container_name: skatilsya_db
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: skatilsyadb
+      PGDATA: /data/postgres
+    volumes:
+      - postgres:/data/postgres
+
+  pgadmin:
+    image: dpage/pgadmin4:6.8
+    container_name: skatilsya_pgadmin
+    ports:
+      - "5050:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: pgadmin@pgadmin.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+      PGADMIN_CONFIG_SERVER_MODE: "False"
+    depends_on:
+      - postgres
+
+volumes:
+  postgres:
