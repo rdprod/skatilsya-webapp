@@ -1,0 +1,11 @@
+# DATABASE
+spring:
+  datasource:
+    url: ${POSTGRES_URL:jdbc:postgresql://localhost:5432/skatilsyadb}
+    username: ${POSTGRES_USER:postgres}
+    password: ${POSTGRES_PASSWORD:postgres}
+  jpa:
+    show-sql: true
+  config:
+    activate:
+      on-profile: dev

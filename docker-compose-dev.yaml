@@ -6,7 +6,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    command: java -Xmx512m -Xms512m -Dspring.profiles.active=prod -jar /app/application.jar
+    command: java -Xmx512m -Xms512m -Dspring.profiles.active=dev -jar /app/application.jar
     restart: always
     working_dir: /app/
     healthcheck:
@@ -18,8 +18,8 @@ services:
       - "8080:8080"
     environment:
       POSTGRES_URL: jdbc:postgresql://postgres:5432/skatilsyadb
-      POSTGRES_PASSWORD: skatilsya_admin_password
-      POSTGRES_DB: skatilsyadb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
     depends_on:
       - postgres
 
@@ -27,11 +27,9 @@ services:
     image: postgres:14.2-alpine
     container_name: skatilsya-db
     restart: always
-    ports:
-      - "5432:5432"
     environment:
-      POSTGRES_USER: skatilsya_admin
-      POSTGRES_PASSWORD: skatilsya_admin_password
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
       POSTGRES_DB: skatilsyadb
       PGDATA: /data/postgres
     volumes:
