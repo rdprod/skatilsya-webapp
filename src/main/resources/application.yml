@@ -1,5 +1,11 @@
+# SERVER
+server:
+  port: 8080
+
 # DATABASE
 spring:
+  main:
+    allow-bean-definition-overriding: true
   datasource:
     url: ${POSTGRES_URL:jdbc:postgresql://localhost:5432/skatilsyadb}
     username: postgres
@@ -11,6 +17,7 @@ spring:
           validation:
             mode: none
       hibernate:
+        dialect: org.hibernate.dialect.PostgreSQL82Dialect
         format-sql: true
     show-sql: true
 

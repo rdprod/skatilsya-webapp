@@ -14,6 +14,8 @@ services:
       interval: 10s
       timeout: 9s
       retries: 3
+    ports:
+      - "8080:8080"
     environment:
       POSTGRES_URL: jdbc:postgresql://postgres:5432/skatilsyadb
     depends_on:

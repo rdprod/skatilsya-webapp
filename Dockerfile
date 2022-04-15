@@ -7,14 +7,18 @@ ARG BUILD_COMMIT=0
 # FROM
 FROM ${BUILD_IMAGE} as builder
 
+RUN export && pwd
+
 # PREPARE SRC TO BUILD
 COPY pom.xml /tmp/
+COPY settings.xml ${MAVEN_CONFIG}/
 COPY src /tmp/src/
 WORKDIR /tmp/
 
 # BUILD (STEP 1)
 RUN mvn -DbuildVersion.teamCityBuildNumber=${BUILD_ID} \
         -DbuildVersion.gitCommitHash=${BUILD_COMMIT} \
+        -Dmaven.test.skip \
         package
 
 # BUILD FINAL IMAGE (STEP 2)
