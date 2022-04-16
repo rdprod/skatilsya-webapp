@@ -2,7 +2,6 @@ package com.rdprod.springboot.spring_rdprod_webapp.entity;
 
 import com.rdprod.springboot.spring_rdprod_webapp.validation.PasswordsEqualConstraint;
 import com.rdprod.springboot.spring_rdprod_webapp.validation.UsernameExist;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

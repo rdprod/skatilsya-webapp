@@ -5,13 +5,12 @@ import com.rdprod.springboot.spring_rdprod_webapp.entity.Role;
 import com.rdprod.springboot.spring_rdprod_webapp.entity.User;
 import com.rdprod.springboot.spring_rdprod_webapp.service.role.RoleService;
 import com.rdprod.springboot.spring_rdprod_webapp.service.user.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.rdprod.springboot.spring_rdprod_webapp.utils.FileUploadUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -157,21 +156,12 @@ public class UserController {
                                    @RequestParam("id") int id) throws IOException {
         User user = userService.findUserById(id);
         if (userAvatarFile != null) {
-            File userAvatarDir = new File(userAvatarPath);
-            if (!userAvatarDir.exists()) {
-                System.out.println("Папка для хранения аватарок пользователей создана: " + userAvatarDir.mkdir());
-            }
-
             String uuidUserAvatarFile = UUID.randomUUID().toString();
             String finalUserAvatarFilename = uuidUserAvatarFile + userAvatarFile.getOriginalFilename();
-
-            userAvatarFile.transferTo(new File(userAvatarPath + "/" + finalUserAvatarFilename));
-            if (user.getAvatar() != null) {
-                File oldUserAvatarFile = new File(userAvatarPath + "/" + user.getAvatar());
-                System.out.println("Старая аватарка пользователя была удалена: " + oldUserAvatarFile.delete());
-            }
             user.setAvatar(finalUserAvatarFilename);
             userService.saveUser(user);
+
+            FileUploadUtils.saveFile(userAvatarPath, finalUserAvatarFilename, userAvatarFile);
 
             BufferedImage image = ImageIO.read
                     (new File(userAvatarPath + "/" + finalUserAvatarFilename));

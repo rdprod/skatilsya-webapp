@@ -31,4 +31,4 @@ spring:
 
 # AVATAR
 user-avatar:
-  path: ../src/main/user_avatar
+  path: src/main/resources/user_avatar
