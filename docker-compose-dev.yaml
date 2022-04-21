@@ -20,6 +20,8 @@ services:
       POSTGRES_URL: jdbc:postgresql://postgres:5432/skatilsyadb
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
+    volumes:
+      - skatilsya-app-avatars:/app/src/main/resources/user_avatar
     depends_on:
       - postgres
 
@@ -51,3 +53,4 @@ services:
 
 volumes:
   postgres:
+  skatilsya-app-avatars:

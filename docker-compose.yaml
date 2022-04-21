@@ -21,6 +21,8 @@ services:
       POSTGRES_USER: skatilsya_admin
       POSTGRES_PASSWORD: skatilsya_admin_password
       POSTGRES_DB: skatilsyadb
+    volumes:
+      - skatilsya-app-avatars:/app/src/main/resources/user_avatar
     depends_on:
       - postgres
 
@@ -50,3 +52,4 @@ services:
 
 volumes:
   postgres:
+  skatilsya-app-avatars:
